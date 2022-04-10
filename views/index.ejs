@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../styles/main.css">
+</head>
+
+<body>
+<header class="header">
+    <ul class="header__nav">
+        <li class="nav__logo">
+            <img src="../assets/main_page/pngwing%201.png">
+            <a class="logo__link">Work</a>
+        </li>
+        <ul class="header__nav__main">
+            <li class="nav__main__item ">
+                <a class="main__item__link">
+                    Main
+                </a>
+            </li>
+            <li class="nav__main__item">
+                <a class="main__item__link">
+                    About Us
+                </a>
+            </li>
+            <li class="nav__main__item">
+                <a class="main__item__link">
+                    Contacts
+                </a>
+            </li>
+            <li class="nav__main__item">
+                <a class="main__item__link">
+                    <%=USER%>
+                </a>
+            </li>
+        </ul>
+    </ul>
+</header>
+<section class="greeting">
+    <div class="wrapper wrapper__greet">
+
+        <div class="greeting__block">
+            <h1 class="greeting__block__intro">
+                Find a job on two clicks!
+            </h1>
+            <div class="buttons__set">
+                <a class="set__button set__button__1" href="#">
+                    Get started</a>
+                <a class="set__button set__button__2" href="#">
+                    Read more</a>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="about_us">
+    <div class="wrapper">
+        <div class="about__us__content">
+            <h2 class="about__us__intro">
+                About Us
+            </h2>
+            <div class="about__us__cards__set">
+                <div class="cards__set__card">
+                    <h3 class="card__intro">Verified companies</h3>
+                    <div class="card__img__container ibg">
+                        <img src="../assets/main_page/tick.png" class="card__img">
+                    </div>
+
+
+                    <div class="card__txt__block">
+                        <div class="card__txt">We only accept verified companies with required documents</div>
+                    </div>
+                </div>
+
+                <div class="cards__set__card">
+                    <h3 class="card__intro">Approved by people</h3>
+                    <div class="card__img__container ibg">
+                        <img src="../assets/main_page/like%201.png" class="card__img"></div>
+
+                    <div class="card__txt__block">
+                        <div class="card__txt">Thw website is user friendly for people of ages</div>
+                    </div>
+                </div>
+
+                <div class="cards__set__card">
+                    <h3 class="card__intro">Big Community</h3>
+                    <div class="card__img__container ibg">
+                        <img src="../assets/main_page/5790259%201.png" class="card__img">
+                    </div>
+
+                    <div class="card__txt__block ">
+                        <div class="card__txt">Opportunity to find a job in any city of Kazakhstan</div>
+                    </div>
+                </div>
+
+                <div class="cards__set__card">
+                    <h3 class="card__intro">Checked Users</h3>
+                    <div class="card__img__container ibg">
+                        <img src="../assets/main_page/screening%201.png" class="card__img">
+                    </div>
+
+                    <div class="card__txt__block">
+                        <div class="card__txt">Good security and ability to view the account of potential employee</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="get__started">
+    <div class="wrapper">
+        <div class="get__started__content">
+            <h2 class="get__started__intro">Get started</h2>
+            <div class="get__started__grid">
+                <div class="grid__item grid__item__1">
+                    <a class="grid__item__link" href="#">
+                        <img class="grid__item__img" src="../assets/main_page/job-application-platform%201.png">
+                    </a>
+                </div>
+                <div class="grid__item grid__item__2">
+                    <a class="grid__office__link">personal office</a>
+                    <a class="grid__item__link" href="#">
+                        <img class="grid__item__img" src="../assets/main_page/private_offcie%201.png">
+                    </a>
+                </div>
+                <div class="grid__item grid__item__3">
+                    <a class="grid__item__link" href="#">
+                        <img class="grid__item__img" src="../assets/main_page/main__find%201.png">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<footer class="footer">
+    <div class="wrapper">
+        <div class="footer__content__container">
+            <div class="footer__content">
+                <div class="footer__elem footer__elem__1">
+                    <div class="subElem1 subElemEx">
+                        <img src="../assets/main_page/pngwing%201.png">
+                        <h3 class="logo__link"> Work</h3>
+                    </div>
+                    <div class="subElem1"> +7 (705) 47 535 26
+                    </div>
+                    <div class="subElem1"> support@mail.ru
+                    </div>
+                </div>
+                <div class=" footer__elem footer__elem__2">
+                    <div class="footer__elem__2__intro">We are Available at</div>
+                    <div class="social__set">
+                        <a class="social__link"><img src="../assets/main_page/twitter%201.png"> </a>
+                        <a class="social__link"><img src="../main_page/Instagram-Icon%201.png"> </a>
+                        <a class="social__link"><img src="../assets/main_page/Facebook_F_icon%201.png"> </a>
+                    </div>
+                </div>
+                <div class=" footer__elem footer__elem__3">
+                    <div class="elem__3__container">
+                        <div class="subscribe__txt">Subscribe to get news</div>
+                        <form>
+                            <input type="text" placeholder="Your email" class="input">
+                            <button type="submit" class="submit__btn">&#8594</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="rights">
+                @2022 all rights are received</div>
+        </div>
+    </div>
+</footer>
+
+
+<script>
+    let infoBtnSet = document.querySelectorAll('.btn__showUp');
+    let btnArr = Array.from(infoBtnSet);
+    let textSet = document.querySelectorAll('.card__txt__block');
+    let textArr = Array.from(textSet);
+
+    window.onclick=()=>{
+        let target = event.target;
+        console.log('sdad')
+        if(target.className ==='btn__showUp')
+            textArr[btnArr.indexOf(target)].classList.toggle('active');
+    }
+</script>
+
+</body>
+
+</html>
