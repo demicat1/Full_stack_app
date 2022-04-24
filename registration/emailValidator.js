@@ -7,12 +7,12 @@ export const emailcheck= (textContent , emailError)=> {
         emailError.innerHTML = 'invalid email';
         return false;
     }
-    else if(textContent=='') {
-        emailError.innerHTML = "We'll never share your email with anyone else";
-    }else
-     {
-        emailError.style.color = "gray";
-        emailError.innerHTML = "We'll never share your email with anyone else";
-        return true;
-    }
+    // else if(textContent=='') {
+    //     emailError.innerHTML = "We'll never share your email with anyone else";
+    // }else
+    //  {
+    //     emailError.style.color = "gray";
+    //     emailError.innerHTML = "We'll never share your email with anyone else";
+    //     return true;
+    // }
 }

@@ -4,6 +4,26 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <script src="https://api-maps.yandex.ru/2.1/?apikey=55a7ca77-4d7d-46f0-8f7c-04e870f2f6f8&lang=ru_RU" type="text/javascript">
+    </script>
+    <script type="text/javascript">
+        // Функция ymaps.ready() будет вызвана, когда
+        // загрузятся все компоненты API, а также когда будет готово DOM-дерево.
+        ymaps.ready(init);
+        function init(){
+            // Создание карты.
+            var myMap = new ymaps.Map("map", {
+                // Координаты центра карты.
+                // Порядок по умолчанию: «широта, долгота».
+                // Чтобы не определять координаты центра карты вручную,
+                // воспользуйтесь инструментом Определение координат.
+                center: [51.09071799, 71.41805771],
+                // Уровень масштабирования. Допустимые значения:
+                // от 0 (весь мир) до 19.
+                zoom: 16
+            });
+        }
+    </script>
     <link rel="stylesheet" href="../styles/main.css">
 </head>
 
@@ -133,6 +153,11 @@
         </div>
     </div>
 </section>
+
+<div id="map" style="width: 900px; margin:0 auto; height: 400px; margin-bottom: 20px">
+    <h2 class="map" style ="text-align: center; padding-bottom: 20px">We are here</h2>
+</div>
+</div>
 <footer class="footer">
     <div class="wrapper">
         <div class="footer__content__container">
@@ -186,6 +211,7 @@
             textArr[btnArr.indexOf(target)].classList.toggle('active');
     }
 </script>
+
 
 </body>
 

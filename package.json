@@ -11,15 +11,18 @@
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.19.2",
+    "crypto-js": "^4.1.1",
     "ejs": "^3.1.6",
     "express": "^4.17.3",
     "gridfs-stream": "^1.1.1",
     "hbs": "^4.2.0",
+    "jsonwebtoken": "^8.5.1",
     "method-override": "^3.0.0",
     "mongodb": "^4.4.1",
     "mongoose": "^6.2.9",
     "multer": "^1.4.4",
     "multer-gridfs-storage": "^5.0.2",
-    "nodemon": "^2.0.15"
+    "nodemon": "^2.0.15",
+    "passport-google-oauth1": "^1.0.0"
   }
 }
