@@ -19,7 +19,7 @@
         align-items: center;
         background: rgb(9,121,97);
         background: linear-gradient(90deg, rgba(9,121,97,1) 0%, rgba(2,0,36,1) 41%, rgba(8,97,85,1) 91%);
-        background-image: url('/assets/img/fon_reg-log.jpg');
+
         background-size: 100%;
     }
     .container{
@@ -63,6 +63,16 @@
     <!--                <input type = "password" name="password" class="input input_password" placeholder="password">-->
     <!--            </form>-->
     <h1 class="heading">Login</h1>
+    <% if(typeof success_msg !== 'undefined'){ %>
+    <div class="alert alert-success alert-dismissible fade show" role="alert" style="width: fit-content; height: fit-content; padding: 0">
+        <%=success_msg%>
+    </div>
+    <%}%>
+    <% if(typeof error !== 'undefined'){ %>
+    <div class="alert alert-danger" role="alert" style="width: fit-content; height: fit-content; padding: 0">
+        <%=error%>
+    </div>
+    <%}%>
     <form id ="registrationForm" method="post">
         <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label" >Email address</label>
