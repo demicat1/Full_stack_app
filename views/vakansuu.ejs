@@ -1,130 +1,142 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Vacancies</title>
-    <link rel = "stylesheet" href="./styles/vak.css">
+    <link rel="stylesheet" href="/static/styles/vak.css" type="text/css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-
 </head>
+
 <body>
-<header class="header">
-    <ul class="header__nav">
-        <li class="nav__logo">
-            <img src="../assets/vak/portfolio.png">
-            <a class="logo__link">Vacancies</a>
-        </li>
-        <ul class="header__nav__main">
-            <li class="nav__main__item ">
-                <a class="main__item__link">
-                    Main
-                </a>
-            </li>
-            <li class="nav__main__item">
-                <a class="main__item__link">
-                    About Us
-                </a>
-            </li>
-            <li class="nav__main__item">
-                <a class="main__item__link">
-                    Contacts
-                </a>
-            </li>
-            <li class="nav__main__item">
-                <a class="main__item__link">
-                    username
-                </a>
-            </li>
-        </ul>
-    </ul>
-</header>
-<section class="main">
-    <h2>Categories</h2>
-        <div class="slider__cont">
-            <div class="slider__line">
-                <div class="line__item"><img src="./assets/vak/komy-ne-stoit-idti-v-it-3.jpg" class="img">
-                    <div class="modal__wind modal__wind__1">
-                        <div class="btn_close"> <a class="close" href="#">X</a></div>
-                        <h3 class="modal__wind__title">It Sphere</h3>
-                        <div class="modal__wind__descr">IT-специалист – широкое понятие, объединяющее в себе представителей многих профессий, работающих в области информационных технологий. Это всевозможные программисты, разработчики,
-                        администраторы сетей и баз, модераторы, специалисты по робототехнике, по информационной безопасности, web-дизайнеры и даже 3D-аниматоры.
-                        </div>
+    <main class="hello__section ibg">
+        <img src="/static/assets/vak/fon.jpg" class="main__fon" alt="fon">
+        <header class="header container">
+            <ul class="header__nav">
+                <li class="nav__logo">
+                    <a class="">Vacancies</a>
+                </li>
+                <ul class="header__nav__main">
+                    <li class="nav__main__item ">
+                        <a class="main__item__link">Main</a>
+                    </li>
+                    <li class="nav__main__item">
+                        <a class="main__item__link">About Us</a>
+                    </li>
+                    <li class="nav__main__item">
+                        <a class="main__item__link">Contacts</a>
+                    </li>
+                    <li class="nav__main__item">
+                        <a class="main__item__link">username</a>
+                    </li>
+                </ul>
+            </ul>
+        </header>
+        <section class="main h-75 d-flex align-items-center justify-content-center">
+            <!--        <div class="container container__form h-25">-->
+            <!--            <form class="row g-3 w-100 h-100" method="post">-->
+            <!--                <div class="col-auto w-75">-->
+            <!--                    <input type="search" name="SearchQuery" class="form-control w-100 h-100"  placeholder="search">-->
+            <!--                </div>-->
+            <!--                <div class="col-auto w-10">-->
+            <!--                    <button type="button" id="searchBTN" formmethod="post" class="btn btn-primary mb-3 w-100 h-100">search</button>-->
+            <!--                </div>-->
+            <!--            </form>-->
+            <!--    </div>-->
+            <div class="container">
+                <a class="text-white" href="/search">More detailed Search</a>
+                <a class="text-white" href="#">I am looking for an employee</a>
+                <form class="row g-3 w-100 h-100" method="post">
+                    <div class="col-auto w-75">
+                        <input type="search" name="SearchQuery" class="form-control w-100 h-100" placeholder="search">
                     </div>
-                </div>
-                <div class="line__item"><img src="./assets/vak/komy-ne-stoit-idti-v-it-3.jpg" class="img">
-
-                    <div class="modal__wind modal__wind__1">
-                        <div class="btn_close"> <a class="close" href="#">X</a></div>
-                        <h3 class="modal__wind__title">It Sphere</h3>
-                        <div class="modal__wind__descr">IT-специалист – широкое понятие, объединяющее в себе представителей многих профессий, работающих в области информационных технологий. Это всевозможные программисты, разработчики,
-                            администраторы сетей и баз, модераторы, специалисты по робототехнике, по информационной безопасности, web-дизайнеры и даже 3D-аниматоры.
-                        </div>
+                    <div class="col-auto w-10">
+                        <button id="searchBTN" formmethod="post" class="btn btn-primary mb-3 w-100 h-100">search</button>
                     </div>
-                </div>
-                <div class="line__item"><img src="./assets/vak/2.jpg" class="img">
-
-                    <div class="modal__wind modal__wind__1">
-                        <div class="btn_close"> <a class="close" href="#">X</a></div>
-                        <h3 class="modal__wind__title">It Sphere</h3>
-                        <div class="modal__wind__descr">IT-специалист – широкое понятие, объединяющее в себе представителей многих профессий, работающих в области информационных технологий. Это всевозможные программисты, разработчики,
-                            администраторы сетей и баз, модераторы, специалисты по робототехнике, по информационной безопасности, web-дизайнеры и даже 3D-аниматоры.
-                        </div>
-                    </div>
-                </div>
-                <div class="line__item"><img src="./assets/vak/2.jpg" class="img">
-                        <div class="modal__wind modal__wind__1">
-                            <div class="btn_close"> <a class="close" href="#">X</a></div>
-                            <div class="modal__wind__content">
-                        <h3 class="modal__wind__title">It Sphere</h3>
-                        <div class="modal__wind__descr">IT-специалист – широкое понятие, объединяющее в себе представителей многих профессий, работающих в области информационных технологий. Это всевозможные программисты, разработчики,
-                            администраторы сетей и баз, модераторы, специалисты по робототехнике, по информационной безопасности, web-дизайнеры и даже 3D-аниматоры.
-                        </div>
-                            </div>
-                    </div>
-                </a>
+                </form>
             </div>
-        </div>
-        </div>
-    <div class='pagination'>
-        <div class="pag__elem first"></div>
-        <div class="pag__elem sec"></div>
-        <div class="pag__elem third"></div>
-        <div class="pag__elem fourth"></div>
-    </div>
-</section>
-<section class="list">
-    <div class="wrapper wrapper__list">
-        <form class="filter">
-            <h3>Filter</h3>
-            <div class="privateness">
-                <select class="form-select mb-2" name="type" aria-label="Default select example">
-                    <option selected>Privateness</option>
+        </section>
+    </main>
+    <section class="list">
+        <div class="wrapper wrapper__list">
+            <form class="filter">
+                <h3>Filter</h3>
+                <div class="privateness">
+                    <select class="form-select mb-2 select__privateness" id="select__privateness" name="type" aria-label="Default select example">
+                    <option value ="dont care" selected>dont mater</option>
                     <option value="private">private</option>
                     <option value="not private">not private</option>
                 </select>
-            </div>
-            <div class="city">
-                <select class="form-select mb-2" name="city" aria-label="Default select example">
-                    <option selected>City</option>
+                </div>
+                <div class="city">
+                    <select class="form-select mb-2 select__city" name="city" id="selected__city" aria-label="Default select example">
+                    <option value="all" selected>all</option>
                     <option value="NurSultan">NurSultan</option>
                     <option value="Aktobe">Aktobe</option>
                     <option value="Almata">Almata</option>
                 </select>
-            </div>
-            <div class="apply">
-                <button class="btn btn-primary">Apply</button>
-            </div>
-        </form>
-        <div class="list__cont"></div>
-    </div>
-    <div class="btn__set">
-        <a class="cont__btn btn__back">&lt</a>
-        <a class="cont__btn pagenum">1</a>
-        <a class="cont__btn btn__forward">&gt</a>
-    </div>
-</section>
-<script type="module" src ="/registration/register_front.js"></script>
-<script src="../scripts/vakansyy/append_vacansies.js"></script>
-<script src="../scripts/vakansyy/slider.js"></script>
+                </div>
+                <div class="apply">
+                    <a class="apply__btn">apply</a>
+                </div>
+            </form>
+            <div class="list__cont"></div>
+        </div>
+        <%if(typeof results !=='undefined') { %>
+            <%results.forEach((item)=>{ %>
+                <div class="list__cont__item">
+                    <div class="list__cont__item__container">
+                        <h3 class="cont__item__title">
+                            <%=item.title%>
+                        </h3>
+                        <ul class="cont__item__list">
+                            <li class="cont__item__list__child">
+                                <%=item.name%>
+                            </li>
+                            <li class="cont__item__list__child">
+                                <%=item.sphere%>
+                            </li>
+                            <li class="cont__item__list__child">
+                                <%=item.city%>
+                            </li>
+                            <li class="cont__item__list__child">
+                                <%=item.type%>
+                            </li>
+                            <li class="cont__item__list__child">
+                                <%=item.salary%>
+                            </li>
+                        </ul>
+                        <p class="text">
+                            <%=item.details%>
+                        </p>
+                        <button class="btn btn-primary p-2 w-25">see more</button>
+                    </div>
+                </div>
+                <%})%>
+                    <%}%>
+                        <div class="btn__set">
+                            <a class="cont__btn btn__back">&lt</a>
+                            <a class="cont__btn pagenum">1</a>
+                            <a class="cont__btn btn__forward">&gt</a>
+                        </div>
+    </section>
+
+    <script type="module" src="/static/scripts/vakansyy/append_vacansies.js"></script>
+    <script>
+        document.getElementById("searchBTN").addEventListener("click", loadRES);
+
+        function loadRES() {
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', '/static/scripts/vakansyy/searchRES.json', true);
+            xhr.onload = function() {
+                if (this.readyState === 4 && this.status === 200) {
+                    var names = JSON.parse(this.responseText);
+                    console.log(names);
+                }
+            }
+            xhr.send();
+        }
+    </script>
 </body>
+
 </html>

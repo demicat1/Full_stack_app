@@ -1,4 +1,3 @@
-
 const express = require('express');
 const app = express();
 const router = express.Router();
@@ -12,9 +11,9 @@ const bodyparser = require('body-parser');
 app.use(bodyparser.json());
 app.use(methodOverride('_method'))
 app.use(bodyparser.urlencoded({extended:true}));
-
 const fs = require('fs');
 
+const ApplyJob = require("../models/JobApply");
 //mongo//
 const mongoURI = "mongodb+srv://nurlan:admin@backendclust.0rgr0.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
 
@@ -68,27 +67,51 @@ router.get('/',(req,res)=>{
 
 
 router.post('/',upload.single('file'),(req,res)=>{
-    const MongoClient = require("mongodb").MongoClient;
-    const url = "mongodb+srv://nurlan:admin@backendclust.0rgr0.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
-    const mongoClient = new MongoClient(url, { useUnifiedTopology: true });
-    mongoClient.connect(function(err, client){
-        const db = client.db("test");
-        const collection = db.collection("joblist");
-        let job = {name: req.body.name, email: req.body.email, text: req.body.text, type:req.body.type , file:req.body.file,city:req.body.city};
-        collection.insertOne(job, function(err, result){
-            if(err){
-                return console.log(err);
-            }
-            console.log(job);
+
+    let Uerrors = [];
+    if(!req.body.title
+        || !req.body.salary
+        || !req.body.city
+        || !req.body.name
+        ||!req.body.type
+        ||!req.body.sphere ){
+        Uerrors.push({msg:"please fullfill all fields"})
+
+    }
+    if(Uerrors.length!==0){
+        res.render('upload',{
+            Uerrors,
+        })
+        return;
+    }
+    let job = { title: req.body.title,name: req.body.name, details: req.body.text, sphere:req.body.sphere , type:req.body.type,city: req.body.city, salary:req.body.salary};
+    if(job.city==="null" || job.sphere==="null" || job.type==="null"){
+        Uerrors.push({msg:"please fullfill all fields"})
+        res.render('upload',{
+           Uerrors
+         })
+     }
+    let newOffer = new ApplyJob({
+        title:req.body.title,name: req.body.name, details: req.body.text, sphere:req.body.sphere , type:req.body.type,city: req.body.city, salary:req.body.salary
+    })
+    console.log("saving data....")
+    newOffer.save((err)=>{
+        if(err){
+            console.log(err);
+        }
+        else{
+            console.log("we added a job apply")
+        }
+    })
             try{
-                const arr = require('../collection_of_vacansi/list.json');
-                arr.push(job);
-                fs.writeFile('./collection_of_vacansi/list.json',JSON.stringify(arr,null,2),err=>{
+                const arr = require('../public/scripts/vakansyy/list.json');
+                arr.unshift(job);
+                fs.writeFile('./public/scripts/vakansyy/list.json',JSON.stringify(arr,null,2),err=>{
                     if(err){
                         console.log(err);
                     }
                     else{
-                        console.log('мы написали в жсон')
+                        console.log('мы написали в жсон');
                     }
                 })
             }
@@ -96,16 +119,8 @@ router.post('/',upload.single('file'),(req,res)=>{
                 console.log(err)
                 return
             }
-
-            client.close();
+    res.redirect("/vacansyy")
         });
-    });
 
-
-
-
-
-    res.redirect('/upload')
-});
 
 module.exports = router;

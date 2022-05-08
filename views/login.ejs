@@ -14,9 +14,9 @@
         margin:0;
         padding: 0;
         height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        /*display: flex;*/
+        /*justify-content: center;*/
+        /*align-items: center;*/
         background: rgb(9,121,97);
         background: linear-gradient(90deg, rgba(9,121,97,1) 0%, rgba(2,0,36,1) 41%, rgba(8,97,85,1) 91%);
 
@@ -53,7 +53,7 @@
 
 
 </style>
-<body>
+<body class="d-flex justify-content-center align-items-center">
 <div class="registration_container">
     <!--            <h1 class="registration_intro">-->
     <!--                Create An Account</h1>-->
@@ -86,7 +86,8 @@
 
         </div>
         <button  class="btn btn-primary">Submit</button>
-        <a href="register.ejs" id="dont_have">don't have an account?</a>
+        <a href="register" id="dont_have">don't have an account?</a>
+        <a href="/login/google" class="button">Sign in with Google</a>
     </form>
 </div>
 <script>
@@ -94,6 +95,7 @@
         window.location.replace('/login')
     })
 </script>
-<script type="module" src="../registration/login_front.js"></script>
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+<script type="module" src="/static/scripts/registration/login_front.js"></script>
 </body>
 </html>

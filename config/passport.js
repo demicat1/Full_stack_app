@@ -1,4 +1,5 @@
 const LocalStrategy =require('passport-local').Strategy;
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const passport = require('passport');
 const mongoose =require('mongoose');
 const bcrypt = require('bcrypt');
@@ -6,6 +7,8 @@ const flash = require('connect-flash');
 
 
 const User = require('../models/User');
+const Cookie = require("cookies");
+const fs = require("fs");
 
 
 
@@ -33,6 +36,8 @@ module.exports = (passport)=> {
             .catch(err => console.log(err));
     }))
 }
+
+
 passport.serializeUser(function(user, done) {
     done(null,user.id)
 });
@@ -42,3 +47,4 @@ passport.deserializeUser(function(id, done) {
         done(err,user);
     })
 });
+

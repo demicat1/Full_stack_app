@@ -1,9 +1,14 @@
 module.exports={
     ensureAuthenticated:function (req,res,next){
-        if(req.isAuthenticated()){
-            return next()
+        try{
+            if(req.isAuthenticated() || req.user.email){
+                return next();
+            }
+            res.redirect('/login')
         }
-        alert('please login');
-        res.redirect('/login');
+        catch (err){
+            res.redirect('/login');
+        }
+
     }
 }

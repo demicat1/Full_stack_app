@@ -1,0 +1,46 @@
+[
+ {
+  "_id": "626d8f39e6ccd36654f20b16",
+  "title": "frontend",
+  "name": "asdsad",
+  "details": "backend",
+  "sphere": "IT",
+  "type": "not private",
+  "city": "NurSultan",
+  "salary": "222",
+  "__v": 0
+ },
+ {
+  "_id": "626d9497cfbde9278b0edcad",
+  "title": "we need a frontEnd",
+  "name": "asd",
+  "details": "ads",
+  "sphere": "IT",
+  "type": "private",
+  "city": "NurSultan",
+  "salary": "222",
+  "__v": 0
+ },
+ {
+  "_id": "626d96e4e22c3f5d761c2203",
+  "title": "need website frontend",
+  "name": "asd",
+  "details": "adssda",
+  "sphere": "Business",
+  "type": "not private",
+  "city": "Aktobe",
+  "salary": "222",
+  "__v": 0
+ },
+ {
+  "_id": "626d9717dcd42698664cacfa",
+  "title": "need person frontend",
+  "name": "asd",
+  "details": "adssda",
+  "sphere": "Business",
+  "type": "not private",
+  "city": "Aktobe",
+  "salary": "222",
+  "__v": 0
+ }
+]
