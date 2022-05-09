@@ -82,43 +82,12 @@
             </form>
             <div class="list__cont"></div>
         </div>
-        <%if(typeof results !=='undefined') { %>
-            <%results.forEach((item)=>{ %>
-                <div class="list__cont__item">
-                    <div class="list__cont__item__container">
-                        <h3 class="cont__item__title">
-                            <%=item.title%>
-                        </h3>
-                        <ul class="cont__item__list">
-                            <li class="cont__item__list__child">
-                                <%=item.name%>
-                            </li>
-                            <li class="cont__item__list__child">
-                                <%=item.sphere%>
-                            </li>
-                            <li class="cont__item__list__child">
-                                <%=item.city%>
-                            </li>
-                            <li class="cont__item__list__child">
-                                <%=item.type%>
-                            </li>
-                            <li class="cont__item__list__child">
-                                <%=item.salary%>
-                            </li>
-                        </ul>
-                        <p class="text">
-                            <%=item.details%>
-                        </p>
-                        <button class="btn btn-primary p-2 w-25">see more</button>
-                    </div>
-                </div>
-                <%})%>
-                    <%}%>
-                        <div class="btn__set">
-                            <a class="cont__btn btn__back">&lt</a>
-                            <a class="cont__btn pagenum">1</a>
-                            <a class="cont__btn btn__forward">&gt</a>
-                        </div>
+
+        <div class="btn__set">
+            <a class="cont__btn btn__back">&lt</a>
+            <a class="cont__btn pagenum">1</a>
+            <a class="cont__btn btn__forward">&gt</a>
+        </div>
     </section>
 
     <script type="module" src="/static/scripts/vakansyy/append_vacansies.js"></script>

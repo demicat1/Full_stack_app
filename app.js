@@ -9,34 +9,35 @@ const bodyparser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const app = express();
 const path = require('path')
-const jsonParser= express.json()
+const jsonParser = express.json()
 const ejsLint = require('ejs-lint');
 
-    app.use("/static",express.static('public'));
+app.use("/static", express.static('public'));
 const multer = require('multer');
 var storage = multer.diskStorage({
-    destination:(req,file,cb)=>{
-        cb(null,'./uploads');
+    destination: (req, file, cb) => {
+        cb(null, './uploads');
     },
-    filename:(req,file,cb)=>{
-        cb(null,file.fieldname+'--'+Date.now()+ path.extname(file.originalname));
+    filename: (req, file, cb) => {
+        cb(null, file.fieldname + '--' + Date.now() + path.extname(file.originalname));
     }
 })
 
-const upload = multer({storage:storage,
-    fileFilter:(req, file, callback)=> {
-        if(file.mimetype==='image/jpg' || file.mimetype==='image/jpeg' || file.mimetype==='image/png'){
-            cb(null,true);
-        }
-        else{
-            cb(null,false)
+const upload = multer({
+    storage: storage,
+    fileFilter: (req, file, callback) => {
+        if (file.mimetype === 'image/jpg' || file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
+            cb(null, true);
+        } else {
+            cb(null, false)
             return cb(new Error("Only JPG,PNG,JPEG are allowed"))
         }
-    }})
+    }
+})
 
 const passport = require('passport');
 require('./config/passport')(passport);
-let arr=[];
+let arr = [];
 
 
 const mongoose = require("mongoose");
@@ -46,11 +47,11 @@ const userScheme = new Schema({
     username: String,
 });
 userScheme.plugin(findOrCreate);
-const User = new mongoose.model("Gusers",userScheme);
+const User = new mongoose.model("Gusers", userScheme);
 
 app.use(cookieSession({
-    maxAge:24*60*60*100,
-    keys:[process.env.COOKIE_SECRET],
+    maxAge: 24 * 60 * 60 * 100,
+    keys: [process.env.COOKIE_SECRET],
 }))
 
 passport.use(new GoogleStrategy({
@@ -59,18 +60,17 @@ passport.use(new GoogleStrategy({
         callbackURL: "http://localhost:3000/login/google/callback"
     },
     function(accessToken, refreshToken, profile, cb) {
-        User.findOrCreate({ googleId: profile.id, username:profile.displayName }, function (err, user) {
+        User.findOrCreate({ googleId: profile.id, username: profile.displayName }, function(err, user) {
             return cb(err, user);
         });
     }
 ));
-passport.serializeUser((user,done)=>{
-    done(null,user.id)
-    }
-);
-passport.deserializeUser((id,done)=>{
-    User.findById(id).then((user)=>{
-        done(null,user);
+passport.serializeUser((user, done) => {
+    done(null, user.id)
+});
+passport.deserializeUser((id, done) => {
+    User.findById(id).then((user) => {
+        done(null, user);
     })
 })
 
@@ -84,7 +84,7 @@ app.use(cookieParser())
 
 //bodyparser
 app.use(bodyparser.json());
-app.use(bodyparser.urlencoded({extended:true}));
+app.use(bodyparser.urlencoded({ extended: true }));
 
 //session
 app.use(session({
@@ -103,10 +103,10 @@ app.use(flash());
 
 
 //global vars
-app.use((req,res,next)=>{
-    res.locals.success_msg=req.flash('success_msg');
-    res.locals.error_msg= req.flash('error_msg');
-    res.locals.error= req.flash('error');
+app.use((req, res, next) => {
+    res.locals.success_msg = req.flash('success_msg');
+    res.locals.error_msg = req.flash('error_msg');
+    res.locals.error = req.flash('error');
     res.locals.Urerror = req.flash('Uerror')
     next();
 })
@@ -119,18 +119,18 @@ const MongoClient = require('mongodb').MongoClient;
 const mongoClient = new MongoClient("mongodb+srv://nurlan:admin@backendclust.0rgr0.mongodb.net/test?retryWrites=true&w=majority");
 
 mongoose.connect("mongodb+srv://nurlan:admin@backendclust.0rgr0.mongodb.net/test?retryWrites=true&w=majority")
-    .then(()=>{
+    .then(() => {
         console.log('mongodb connected');
     })
-    .catch(err=>console.log(err))
+    .catch(err => console.log(err))
 
 
 
 
 
+const port = process.env.PORT || 3000;
 
-
-app.listen(3000,()=>{
+app.listen(port, () => {
     console.log('running server on port 3000');
 })
 
@@ -141,24 +141,25 @@ app.use('/', main)
 const users = require('./routes/users');
 app.use('/', users);
 const listRoute = require('./routes/vakansiList');
-app.use('/vakansyy',listRoute);
+app.use('/vakansyy', listRoute);
 const search = require("./routes/searching")
 app.use("/search", search);
 const userpage = require('./routes/userpage');
 app.use('/userpage', userpage);
 
-app.get("/login/google",passport.authenticate("google",{
-    scope: ["profile","email"],
-    prompt:"select_account"
+app.get("/login/google", passport.authenticate("google", {
+    scope: ["profile", "email"],
+    prompt: "select_account"
 }))
 
-app.get("/login/google/callback",passport.authenticate('google'), function(req,res){
-    res.cookie('user',JSON.stringify(profile.username),{
-        maxAge:5000,
-        httpOnly:true,
+app.get("/login/google/callback", passport.authenticate('google'), function(req, res) {
+    res.cookie('user', JSON.stringify(profile.username), {
+        maxAge: 5000,
+        httpOnly: true,
     });
-   res.redirect('/')})
-app.get('/login/logout',(req,res)=>{
+    res.redirect('/')
+})
+app.get('/login/logout', (req, res) => {
     req.logout();
     res.clearCookie()
 
@@ -201,8 +202,3 @@ app.get('/login/logout',(req,res)=>{
 //
 
 //init gfs
-
-
-
-
-
