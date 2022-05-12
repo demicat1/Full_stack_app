@@ -1,7 +1,7 @@
-const LocalStrategy =require('passport-local').Strategy;
+const LocalStrategy = require('passport-local').Strategy;
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const passport = require('passport');
-const mongoose =require('mongoose');
+const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const flash = require('connect-flash');
 
@@ -13,15 +13,16 @@ const fs = require("fs");
 
 
 
-module.exports = (passport)=> {
-    passport.use(new LocalStrategy({usernameField: 'email'}, (email, password, done) => {
-        User.findOne({email: email})
+module.exports = (passport) => {
+    passport.use(new LocalStrategy({ usernameField: 'email' }, (email, password, done) => {
+        User.findOne({ email: email })
             .then((user) => {
                 if (!user) {
                     console.log('пользователя не существует');
-                    flash('error','that email is not registered')
-                    return done(null, false, {msg: 'that email is not registered'});
+                    flash('error', 'that email is not registered')
+                    return done(null, false, { msg: 'that email is not registered' });
                 }
+
                 bcrypt.compare(password, user.password, (err, isMatch) => {
                     if (err) {
                         console.log(err)
@@ -39,12 +40,11 @@ module.exports = (passport)=> {
 
 
 passport.serializeUser(function(user, done) {
-    done(null,user.id)
+    done(null, user.id)
 });
 
 passport.deserializeUser(function(id, done) {
-    User.findById(id,function (err,user){
-        done(err,user);
+    User.findById(id, function(err, user) {
+        done(err, user);
     })
 });
-

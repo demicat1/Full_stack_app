@@ -56,20 +56,8 @@ const mongoClient = new MongoClient("mongodb+srv://nurlan:admin@backendclust.0rg
 
 
 router.get('/', async(req, res) => {
-    // const getAppCookies =() => {
-    //     // We extract the raw cookies from the request headers
-    //     const rawCookies = req.headers.cookie.split('; ');
-    //     // rawCookies = ['myapp=secretcookie, 'analytics_cookie=beacon;']
-    //
-    //     const parsedCookies = {};
-    //     rawCookies.forEach(rawCookie=>{
-    //         const parsedCookie = rawCookie.split('=');
-    //         // parsedCookie = ['myapp', 'secretcookie'], ['analytics_cookie', 'beacon']
-    //         parsedCookies[parsedCookie[0]] = parsedCookie[1];
-    //     });
-    //     return parsedCookies;
-    // };
-    let user = await User.findOne({ email: req.user.email });
+
+    let user = await User.findOne({ email: req.session.userEmail });
     res.render('user_page', {
         res: user,
     })
@@ -88,10 +76,10 @@ router.post('/', upload.single("avatar"), async(req, res, next) => {
     }
     const img = fs.readFileSync(req.file.path);
     const encode_img = img.toString('base64');
-    const user = await User.findOne({ email: activeUser });
+    const user = await User.findOne({ email: req.session.userEmail });
     user.avatar.mimetype = req.file.mimetype;
     user.avatar.image = encode_img;
-    console.log(user)
+
     user.save((err) => {
         if (err) {
             err = "не можем сохрнаить аву";
@@ -105,18 +93,15 @@ router.post('/', upload.single("avatar"), async(req, res, next) => {
 
 
 
-router.get('/image/:name', (req, res) => {
-    new Promise(async(resolve, reject) => {
-        const user = await User.findOne({ name: req.params.name });
-        if (!user) {
-            reject(user);
-        } else {
-            resolve(user);
-        }
-    }).then((user) => {
-        res.contentType(user.avatar.mimetype);
-        res.send(Buffer.from(user.avatar.image, "base64"));
-    })
+router.get('/image/:name', async(req, res) => {
+    const name = req.params.name
+    const user = await User.findOne({ name: name });
+    if (!user.avatar.mimetype) {
+        return
+    }
+    res.contentType(user.avatar.mimetype);
+    res.send(Buffer.from(user.avatar.image, "base64"));
+
 })
 
 

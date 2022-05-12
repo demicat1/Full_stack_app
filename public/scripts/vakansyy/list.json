@@ -1,5 +1,86 @@
 [
   {
+    "title": "asdasdas",
+    "name": "asdsa",
+    "details": "asdas",
+    "sphere": "Business",
+    "type": "not private",
+    "city": "Aktobe",
+    "salary": "300"
+  },
+  {
+    "title": "ads",
+    "name": "ad",
+    "details": "ad",
+    "sphere": "Business",
+    "type": "private",
+    "city": "Aktobe",
+    "salary": "22"
+  },
+  {
+    "title": "asd",
+    "name": "ads",
+    "details": "ad",
+    "sphere": "IT",
+    "type": "private",
+    "city": "Aktobe",
+    "salary": "11"
+  },
+  {
+    "title": "sad",
+    "name": "dsa",
+    "details": "asd",
+    "sphere": "IT",
+    "type": "not private",
+    "city": "Aktobe",
+    "salary": "22"
+  },
+  {
+    "title": "a",
+    "name": "a",
+    "details": "a",
+    "sphere": "IT",
+    "type": "private",
+    "city": "Aktobe",
+    "salary": "22"
+  },
+  {
+    "title": "a",
+    "name": "a",
+    "details": "a",
+    "sphere": "Tourism",
+    "type": "not private",
+    "city": "NurSultan",
+    "salary": "22"
+  },
+  {
+    "title": "ad",
+    "name": "asd",
+    "details": "asd",
+    "sphere": "Tourism",
+    "type": "private",
+    "city": "Aktobe",
+    "salary": "22"
+  },
+  {
+    "title": "ads",
+    "name": "asd",
+    "details": "asd",
+    "sphere": "IT",
+    "type": "private",
+    "city": "Almata",
+    "salary": "22"
+  },
+  {
+    "title": "ads",
+    "name": "asd",
+    "details": "asd",
+    "sphere": "IT",
+    "type": "private",
+    "city": "Almata",
+    "salary": "22"
+  },
+  {
     "title": "qwe",
     "name": "qwe",
     "details": "qwe",

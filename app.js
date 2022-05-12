@@ -11,6 +11,7 @@ const app = express();
 const path = require('path')
 const jsonParser = express.json()
 const ejsLint = require('ejs-lint');
+const USER = require("./models/User")
 
 app.use("/static", express.static('public'));
 const multer = require('multer');
@@ -57,7 +58,7 @@ app.use(cookieSession({
 passport.use(new GoogleStrategy({
         clientID: process.env.CLIENT_ID,
         clientSecret: process.env.CLIENT_SECRET,
-        callbackURL: "http://localhost:3000/login/google/callback"
+        callbackURL: "https://arcane-coast-49049.herokuapp.com/login/google/callback"
     },
     function(accessToken, refreshToken, profile, cb) {
         User.findOrCreate({ googleId: profile.id, username: profile.displayName }, function(err, user) {
@@ -128,9 +129,9 @@ mongoose.connect("mongodb+srv://nurlan:admin@backendclust.0rgr0.mongodb.net/test
 
 
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT;
 
-app.listen(port, () => {
+app.listen(port || 3000, () => {
     console.log('running server on port 3000');
 })
 
@@ -146,7 +147,8 @@ const search = require("./routes/searching")
 app.use("/search", search);
 const userpage = require('./routes/userpage');
 app.use('/userpage', userpage);
-
+const adminroute = require('./routes/adminpage');
+app.use('/adminpage', adminroute)
 app.get("/login/google", passport.authenticate("google", {
     scope: ["profile", "email"],
     prompt: "select_account"
@@ -159,46 +161,3 @@ app.get("/login/google/callback", passport.authenticate('google'), function(req,
     });
     res.redirect('/')
 })
-app.get('/login/logout', (req, res) => {
-    req.logout();
-    res.clearCookie()
-
-    res.redirect('/login');
-})
-
-
-
-
-
-
-
-
-//Google auth
-//     const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
-//     const GOOGLE_CLIENT_ID = '671478864388-2upvd52837aodttrg012v9pgqap3clch.apps.googleusercontent.com';
-//     const GOOGLE_CLIENT_SECRET = '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';
-// passport.use(new GoogleStrategy({
-//         clientID: GOOGLE_CLIENT_ID,
-//         clientSecret: GOOGLE_CLIENT_SECRET,
-//         callbackURL: "http://localhost:3000/login/google/callback"
-//     },
-//     function(accessToken, refreshToken, profile, done) {
-//         userProfile=profile;
-//         return done(null, userProfile);
-//     }
-// ));
-//
-// app.get('/login/google',
-//     passport.authenticate('google', { scope : ['profile', 'email'] }));
-//
-// app.get('/login/google/callback',
-//     passport.authenticate('google', { failureRedirect: '/error' }),
-//     function(req, res) {
-//         // Successful authentication, redirect success.
-//         res.render('index',{
-//             USER:'google username'
-//         })
-//     });
-//
-
-//init gfs
