@@ -7,6 +7,7 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const findOrCreate = require('mongoose-findorcreate');
 const bodyparser = require('body-parser');
 const cookieParser = require('cookie-parser');
+const cors = require("cors");
 const app = express();
 const path = require('path')
 const jsonParser = express.json()
@@ -82,7 +83,7 @@ app.use(express.json())
 
 
 app.use(cookieParser())
-
+app.use(cors());
 //bodyparser
 app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({ extended: true }));

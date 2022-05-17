@@ -5,64 +5,83 @@ const app = express();
 const bodyParser = require("body-parser");
 const url = "mongodb://localhost:27017/";
 const JobApply = require('../models/JobApply');
+const offer = require("../models/offers");
 const fs = require("fs");
+const User = require("../models/User");
 app.use(express.json())
 app.use(bodyParser.urlencoded({ extended: false }));
-router.get('/', (req, res) => {
-    res.render('vakansuu')
-        // mongoClient.connect(function (err, client) {
-        //     const db = client.db("test");
-        //     const collection = db.collection("joblist");
-        //
-        //     if (err) return console.log(err);
-        //     collection.find()
-        //     console.log(db.collection('joblist').find())
-        //     fs.writeFile('/collection_of_vacansi/list.json', JSON.stringify(db.collection('joblist').find()) , err=>{
-        //         if(err){
-        //             console.log(err)
-        //         }
-        //         else {
-        //             console.log('мы написали в файл')
-        //         }
-        //     })
-        // })
-});
-// res.render('vakansuu.ejs');
+const mongoosePag = require('mongoose-paginate-v2');
+
+
 
 mongoose.connect("mongodb+srv://nurlan:admin@backendclust.0rgr0.mongodb.net/test?retryWrites=true&w=majority")
     .then(() => {
         console.log('mongodb connected');
     })
     .catch(err => console.log(err))
-
-
-
-
-router.post('/', async(req, res) => {
-    let p = req.body.SearchQuery;
-    p = p.toLowerCase();
-    p = p.split(" ");
-    let allQueries = [];
-    p.forEach(item => {
-        allQueries.push({ title: { $regex: String(item), $options: 'i' } })
-    });
-    found = await JobApply.find({ $or: allQueries });
-    if (!found) {
-        res.status(404).send({ error: "NO FOUNDINGS" })
-    }
-    fs.writeFile('./public/scripts/vakansyy/searchRES.json', JSON.stringify(found, null, 1), (err) => {
-        if (err) {
-            console.log('failed to search');
-            return;
-        }
-        console.log('FOUND@!')
-    })
-    res.render('searchResults', {
-        results: found,
-    });
-
-
+router.get("/search",async(req,res)=>{
+    var query = req.query.searchquery;
+    query = query.toLowerCase();
+     res.json(await offer.find({title:{$regex:query} }));
 })
+router.get('/',async(req,res)=>{
+    var city = req.query.City;
+    var privateness = req.query.privateness;
+    var search = req.query.search;
+    var pageNum = parseInt(req.query.pageNum);
+    if(!req.query.pageNum){
+        pageNum = 1;
+    }
+
+        if(isNaN(pageNum)){
+            pageNum = 1;
+        }
+        const filter ={
+            city:city,
+            privateness :privateness,
+            search:search,
+        }
+
+
+    for(key in filter){
+        if(filter[key] ==='all' || filter[key] ==='dontcare' || filter[key]===undefined || filter[key]==='' || !filter[key])    {
+           delete filter[key]
+        }
+    }
+
+    var size = 8;
+    if(pageNum <= 0 && size <0){
+        response = {"error" : true,"message" : "invalid page number, should start with 1"};
+        return res.json(response)
+    }
+    var offers = await offer.paginate();
+    // async function getNextDocs(no_of_docs_required, last_doc_id) {
+    //     let docs
+    //     if (!last_doc_id) {
+    //         // get first 5 docs
+    //         docs = await offer.find().sort({ _id: -1 }).limit(no_of_docs_required)
+    //         last_doc_id = docs[docs.length-1];
+    //     }
+    //     else {
+    //         // get next 5 docs according to that last document id
+    //         docs = await offer.find({_id: {$lt: last_doc_id}})
+    //             .sort({ _id: -1 }).limit(no_of_docs_required)
+    //     }
+    //     return docs
+    // }
+
+
+    // var offers = await offer.find(filter).limit(size).skip(skip).exec();
+    res.send(offers)
+    // res.render("vakansuu",{
+    //     offers:offers,
+    //     selected__pr : req.query.privateness,
+    //     selected__city:req.query.City,
+    //     pageNum:req.query.pageNum,
+    // });
+})
+
+
 
 
 module.exports = router;

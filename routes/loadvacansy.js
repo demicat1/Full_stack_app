@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 const multer = require('multer');
 const gridFs = require('multer-gridfs-storage');
 const grid = require('gridfs-stream');
+const OfferImg = require("../models/offers_images")
 const methodOverride = require('method-override');
 const bodyparser = require('body-parser');
 app.use(bodyparser.json());
@@ -40,16 +41,29 @@ router.get('/', (req, res) => {
     res.render('upload');
 })
 
-
+const DEFAULT_ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 
 
 
 router.post('/', uploadImgs.array("files"), (req, res) => {
     let filesArr = [];
 
+    function getRandomCharFromAlphabet(alphabet) {
+        return alphabet.charAt(Math.floor(Math.random() * alphabet.length));
+    }
+    function generateId(idDesiredLength, alphabet) {
+        return Array.from({length: idDesiredLength}).map(() => {
+            return getRandomCharFromAlphabet(alphabet);
+        }).join('');
+    }
+
+    let id = generateId(8,DEFAULT_ALPHABET);
+
+
     req.files.forEach(element => {
         const img = fs.readFileSync(element.path);
         const encode_img = img.toString('base64');
+
         let file = {
             filemimetype: element.mimetype,
             img: encode_img,
@@ -82,7 +96,21 @@ router.post('/', uploadImgs.array("files"), (req, res) => {
             Uerrors
         })
     }
+
+    let newOfferImg = new OfferImg({
+        id:id,
+        images: filesArr,
+    })
+        newOfferImg.save((err)=>{
+            if(err){
+                console.log(err);
+            }
+            else{
+                console.log("saved image")
+            }
+        })
     let newOffer = new JobOffer({
+        id:id,
         title: req.body.title,
         name_of_comp: req.body.name,
         details: req.body.text,
@@ -90,7 +118,7 @@ router.post('/', uploadImgs.array("files"), (req, res) => {
         privateness: req.body.type,
         city: req.body.city,
         salary: req.body.salary,
-        images: filesArr,
+        accepted:false,
     })
     console.log("saving data....")
     newOffer.save((err) => {
@@ -100,20 +128,6 @@ router.post('/', uploadImgs.array("files"), (req, res) => {
             console.log("we added a job apply")
         }
     })
-    try {
-        const arr = require('../public/scripts/vakansyy/list.json');
-        arr.unshift(job);
-        fs.writeFile('./public/scripts/vakansyy/list.json', JSON.stringify(arr, null, 2), err => {
-            if (err) {
-                console.log(err);
-            } else {
-                console.log('мы написали в жсон');
-            }
-        })
-    } catch (err) {
-        console.log(err)
-        return
-    }
     res.redirect("/vakansyy")
 });
 

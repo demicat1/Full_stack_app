@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="/static/styles/vak.css" type="text/css">
+    <title>Document</title>
+
+    <style>
+
+    </style>
+</head>
+<body class="d-flex h-100">
+<div class=" w-25  h-100  ">
+    <div class="d-flex w-100 flex-column align-items-center">
+        <div class="admin-image" style="width:100px; height:100px">
+            <img src='/static/assets/userpage/blank-avatar.jpg' class="h-100 w-100">
+        </div>
+        <div class>admin</div>
+        <ul class="side-panel-functions ">
+            <li class="functions-item">
+                <a class="item-link" href="/adminpage">list of users</a>
+            </li>
+            <li class="functions-item">
+                <a class="item-link">offers</a>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="offers-managing">
+    <div class="offers">
+
+
+
+    </div>
+    <div class="d-flex w-25 justify-content-between">
+        <button class="btn btn-danger" id="btn-back">back</button>
+        <div class="pageNum text-white" id="pagenum">1</div>
+        <button class="btn btn-primary" id="btn-next">next</button>
+    </div>
+
+
+
+
+
+
+</div>
+
+
+
+
+
+<script>
+
+
+    let pageNo = document.getElementById('pagenum').innerHTML
+    var size = 5;
+
+    document.getElementById('btn-next').addEventListener('click',show);
+    document.getElementById('btn-back').addEventListener('click',showB);
+    if(pageNo ==='1'){
+        fetchData();
+    }
+    function showB(){
+        pageNo= parseInt(pageNo)-1;
+        if(parseInt(pageNo)<0){
+            return
+        }
+        document.getElementById('pagenum').innerHTML = pageNo;
+        fetchData();
+    }
+    function show(){
+        pageNo= parseInt(pageNo)+1;
+        document.getElementById('pagenum').innerHTML = pageNo;
+        fetchData();
+    }
+    function fetchData(){
+        console.log(pageNo)
+        var xhr = new XMLHttpRequest;
+        xhr.open("GET",`http://localhost:3000/adminpage/offersManaging/pag?pageNum=${pageNo}`,true);
+        xhr.responseType='json'
+        xhr.onload = function (){
+            var status = xhr.status;
+            if(status === 200){
+                console.log(xhr.response);
+                var data = xhr.response;
+                var output = '';
+                if(data.length ===0){
+                    pageNo = pageNo -1;
+                    document.getElementById('pagenum').innerHTML = pageNo;
+                    return
+                }
+                for(let i = 0; i < data.length ; i++){
+
+                    output += `<div class="list__cont__item"><div class="list__cont__item__container"><h3 class="cont__item__title">${data[i].title}</h3>
+<ul class="cont__item__list"><li class="cont__item__list__child__name">Name: ${data[i].name_of_comp}</li><li class="cont__item__list__child__name">Sphere: ${data[i].sphere}</li>
+<li class="cont__item__list__child">City: ${data[i].city}</li>
+<li class="cont__item__list__child">Privateness: ${data[i].privateness}</li>
+<li class="cont__item__list__child__salary">Salary :${data[i].salary}</li></ul>
+<p class="text">Details:${data[i].details}</p>
+<a href="/adminpage/offersManaging/accept?id=${data[i]._id}"><button class="btn btn-primary p-2 w-25">accept</button></a>
+<a href="/adminpage/offersManaging/reject?id=${data[i]._id}"><button class="btn btn-danger p-2 w-25">rejects</button></a>
+</div>
+</div>`
+                }
+                document.querySelector('.offers').innerHTML = output;
+            }
+        };
+        xhr.send();
+    }
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+</body>
+</html>

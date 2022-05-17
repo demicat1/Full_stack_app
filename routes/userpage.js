@@ -4,7 +4,7 @@ const cookieParser = require('cookie-parser');
 const Cookie = require('cookies')
 const mongoose = require('mongoose');
 const User = require('../models/User');
-
+const imageToBase64 = require('image-to-base64');
 const { decode } = require("jsonwebtoken");
 const fs = require("fs");
 const app = express();
@@ -19,9 +19,7 @@ app.use(cookieParser());
 const multer = require('multer');
 const path = require("path");
 var storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, './public/avatars');
-    },
+
     filename: (req, file, cb) => {
         cb(null, file.fieldname + '--' + Date.now() + path.extname(file.originalname));
     }
@@ -75,10 +73,16 @@ router.post('/', upload.single("avatar"), async(req, res, next) => {
         return next(error);
     }
     const img = fs.readFileSync(req.file.path);
-    const encode_img = img.toString('base64');
+
     const user = await User.findOne({ email: req.session.userEmail });
     user.avatar.mimetype = req.file.mimetype;
-    user.avatar.image = encode_img;
+    imageToBase64(req.file.path).then((response)=>{
+        user.avatar.image = response;
+        console.log(response);
+    }).catch((err)=>{console.log(err)})
+
+
+
 
     user.save((err) => {
         if (err) {
@@ -93,12 +97,9 @@ router.post('/', upload.single("avatar"), async(req, res, next) => {
 
 
 
-router.get('/image/:name', async(req, res) => {
-    const name = req.params.name
-    const user = await User.findOne({ name: name });
-    if (!user.avatar.mimetype) {
-        return
-    }
+router.get('/image/:email', async(req, res) => {
+    const email = req.params.email
+    const user = await User.findOne({ email: email });
     res.contentType(user.avatar.mimetype);
     res.send(Buffer.from(user.avatar.image, "base64"));
 

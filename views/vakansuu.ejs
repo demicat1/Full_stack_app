@@ -49,10 +49,12 @@
                 <a class="text-white" href="#">I am looking for an employee</a>
                 <form class="row g-3 w-100 h-100" method="post">
                     <div class="col-auto w-75">
-                        <input type="search" name="SearchQuery" class="form-control w-100 h-100" placeholder="search">
+                        <input type="search" name="SearchQuery" id="searchQuery" class="form-control w-100 h-100" placeholder="search">
+                        <div class="d-flex flex-column w-auto suggest p-0 m-0" id="suggest" style="position: absolute; top:300px; left:200px"></div>
                     </div>
+
                     <div class="col-auto w-10">
-                        <button id="searchBTN" formmethod="post" class="btn btn-primary mb-3 w-100 h-100">search</button>
+                        <button id="searchBTN" type="button" class="btn btn-primary mb-3 w-100 h-100">search</button>
                     </div>
                 </form>
             </div>
@@ -63,49 +65,67 @@
             <form class="filter">
                 <h3>Filter</h3>
                 <div class="privateness">
-                    <select class="form-select mb-2 select__privateness" id="select__privateness" name="type" aria-label="Default select example">
-                    <option value ="dont care" selected>dont mater</option>
+                    <select class="form-select mb-2 select__privateness" id="selected__privateness" name="type" aria-label="Default select example">
+                    <option value="<%=selected__pr%>" selected><%=selected__pr%></option>
                     <option value="private">private</option>
                     <option value="not private">not private</option>
                 </select>
                 </div>
                 <div class="city">
                     <select class="form-select mb-2 select__city" name="city" id="selected__city" aria-label="Default select example">
-                    <option value="all" selected>all</option>
+                        <%if(typeof selected__city !== null){%>
+                    <option value="<%=selected__city%>" selected><%=selected__city%></option>
+                        <%} else{%>
+                        <option value="all" selected>all</option>
+                        <%}%>
                     <option value="NurSultan">NurSultan</option>
                     <option value="Aktobe">Aktobe</option>
                     <option value="Almata">Almata</option>
                 </select>
                 </div>
-                <div class="apply">
-                    <a class="apply__btn">apply</a>
-                </div>
+                <button class="btn btn-primary" type="button" id="filterBtn">apply</button>
             </form>
-            <div class="list__cont"></div>
-        </div>
+            <div class="list__cont">
+                <%offers.forEach(item=>{ %>
+                    <div class="list__cont__item"><div class="list__cont__item__container"><h3 class="cont__item__title"><%=item.title%></h3>
+<ul class="cont__item__list"><li class="cont__item__list__child__name">Name: <%=item.name_of_comp%></li><li class="cont__item__list__child__name"><%=item.sphere%></li>
+<li class="cont__item__list__child"><%=item.city%></li>
+<li class="cont__item__list__child">Privateness: <%=item.privateness%></li>
+<li class="cont__item__list__child__salary">Salary :<%=item.salary%></li></ul>
+<p class="text">Details:<%=item.details%></p>
+<button class="btn btn-primary p-2 w-25">See more </button>
+</div>
+</div>
+                <%})%>
 
+            </div>
+        </div>
         <div class="btn__set">
-            <a class="cont__btn btn__back">&lt</a>
-            <a class="cont__btn pagenum">1</a>
-            <a class="cont__btn btn__forward">&gt</a>
+            <a class="cont__btn btn__back" id="btn__back" >&lt</a>
+            <%if(pageNum){%>
+            <a class="cont__btn pagenum" id="pagenum"><%=pageNum%></a>
+            <%}else{%>
+            <a class="cont__btn pagenum" id="pagenum">1</a>
+            <%}%>
+            <a class="cont__btn btn__forward" id ="btn__forward"  >&gt</a>
         </div>
     </section>
 
-    <script type="module" src="/static/scripts/vakansyy/append_vacansies.js"></script>
     <script>
-        document.getElementById("searchBTN").addEventListener("click", loadRES);
+    document.getElementById('filterBtn').onclick = function (){
+        location.href =`/vakansyy?pageNum=${document.getElementById('pagenum').innerHTML}&privateness=${document.getElementById("selected__privateness").value}&City=${document.getElementById('selected__city').value}`
+    }
+    document.getElementById('btn__back').onclick = function(){
 
-        function loadRES() {
-            var xhr = new XMLHttpRequest();
-            xhr.open('GET', '/static/scripts/vakansyy/searchRES.json', true);
-            xhr.onload = function() {
-                if (this.readyState === 4 && this.status === 200) {
-                    var names = JSON.parse(this.responseText);
-                    console.log(names);
-                }
-            }
-            xhr.send();
-        }
+        location.href=`/vakansyy?pageNum=${parseInt(document.getElementById('pagenum').innerHTML) -1}&privateness=${document.getElementById("selected__privateness").value}&City=${document.getElementById('selected__city').value}`
+    }
+    document.getElementById('btn__forward').onclick = function(){
+
+        location.href=`/vakansyy?pageNum=${parseInt(document.getElementById('pagenum').innerHTML)+1}&privateness=${document.getElementById("selected__privateness").value}&City=${document.getElementById('selected__city').value}`
+    }
+    document.getElementById('searchBTN').onclick = function(){
+        location.href=`/vakansyy?pageNum=${1}&privateness=${document.getElementById("selected__privateness").value}&City=${document.getElementById('selected__city').value}`
+    }
     </script>
 </body>
 

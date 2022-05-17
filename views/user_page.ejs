@@ -20,7 +20,7 @@
                 <%if(!res.avatar.mimetype){ %>
                     <img src="/static/assets/userpage/blank-avatar.jpg" class="w-100 h-50">
                     <%}else{%>
-                        <img src="/userpage/image/<%=res.name%>" class="w-100 h-100">
+                        <img src="/userpage/image/<%=res.email%>" class="w-100 h-100">
                         <%}%>
                             <form action="/userpage" method="post" enctype="multipart/form-data">
                                 <div class="mb-3">

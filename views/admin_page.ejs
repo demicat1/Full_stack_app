@@ -44,56 +44,92 @@
                     <a class="item-link" href="adminpage/userManager">list of users</a>
                 </li>
                 <li class="functions-item">
-                    <a class="item-link">offers</a>
+                    <a class="item-link" href="/adminpage/offersManaging">offers</a>
                 </li>
             </ul>
         </div>
     </div>
 
     <div class="container container-dark bg-dark">
+        <table class="table table-dark">
         <thead>
             <tr>
                 <th scope="col">#</th>
-                <th scope="col">avatar</th>
-                <th scope="col">Email</th>
-                <th scope="col">password</th>
+                <th scope="col">email</th>
+                <th scope="col">name</th>
+                <th scope="col">action</th>
             </tr>
         </thead>
-        <%let i = 1%>
-            <%users.forEach((user)=>{ %>
-                <table class="table table-dark">
 
-                    <tbody>
-                        <tr>
-                            <th scope="row">
-                                <%=i++%>
-                            </th>
-                            <td>
-                                <div contenteditable>
-                                    <%=user.email%>
-                                </div>
-                            </td>
-                            <td>
-                                <div contenteditable>
-                                    <%=user.email%>
-                                </div>
-                            </td>
-                            <td>
-                                <div contenteditable>
-                                    <%=user.name%>
-                                </div>
-                            </td>
-                            <td>
-                                <button class="btn btn-primary" method="post"><a class="text-white"href="admin_page/edit/<%=user.email%>">edit</a></button>
-                                <button class="btn btn-danger" method="post"><a class="text-white"href="/adminpage/delete-user/<%=user.email%>">delete</a></button>
-                            </td>
-                        </tr>
+
+
+                    <tbody id="TR">
+
+
+
+
                     </tbody>
-
-                    <%})%>
                 </table>
+        <div class="d-flex w-25 justify-content-between">
+            <button class="btn btn-primary" id="btn-next">next</button>
+            <button class="btn btn-danger" id="btn-back">back</button>
+        </div>
+        <div class="pageNum text-white" id="pagenum">1</div>
     </div>
 
+    <script>
+        let pageNo = document.getElementById('pagenum').innerHTML
+        var size = 5;
+
+        document.getElementById('btn-next').addEventListener('click',show);
+        document.getElementById('btn-back').addEventListener('click',showB);
+        if(pageNo ==='1'){
+            fetchData();
+        }
+        function showB(){
+            pageNo= parseInt(pageNo)-1;
+            if(parseInt(pageNo)<0){
+                return
+            }
+            document.getElementById('pagenum').innerHTML = pageNo;
+            fetchData();
+        }
+        function show(){
+            pageNo= parseInt(pageNo)+1;
+            document.getElementById('pagenum').innerHTML = pageNo;
+            fetchData();
+        }
+
+
+
+        function fetchData(){
+            console.log(pageNo)
+            var xhr = new XMLHttpRequest;
+            xhr.open("GET",`http://localhost:3000/adminpage/list?pageNum=${pageNo}`,true);
+            xhr.responseType='json'
+            xhr.onload = function (){
+                var status = xhr.status;
+                if(status === 200){
+                    console.log(xhr.response);
+                    var data = xhr.response;
+                    var output = '';
+                    if(data.length ===0){
+                        pageNo = pageNo -1;
+                        document.getElementById('pagenum').innerHTML = pageNo;
+                        return
+                    }
+                    for(let i = 0; i<data.length; i++){
+                        output +=
+                            ` <tr> <th scope="row"> ${i+1}  <td> <div contenteditable> ${data[i].email} </div></td> <td> <div contenteditable> ${data[i].name} </div></td> <td>
+<button class="btn-primary" method="post"><a class="text-white" href=/adminpage/edit-user?email=${data[i].email}>edit</a></button>
+                      <button class="btn btn-danger" method="post"><a class="text-white"href=/adminpage/delete-user/${data[i].email}>delete</a></button> </tr>`
+                    }
+                    document.getElementById('TR').innerHTML = output;
+                }
+            };
+            xhr.send();
+        }
+    </script>
 
 
 

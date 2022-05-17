@@ -11,7 +11,9 @@ app.use(cookieParser());
 router.get('/', ensureAuthenticated, async(req, res) => {
 
     console.log(req.session.userEmail);
-    const user = await User.findOne({ email: req.user.email })
+    const user = await User.findOne({ email: req.session.userEmail })
+    console.log("redering main"
+    )
     res.render('index', {
         res: user,
     })

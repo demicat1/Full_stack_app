@@ -13,10 +13,19 @@ const passport = require('passport');
 console.log(__dirname+'/styles');
 const Cookie = require('cookies')
 const bodyparser = require("body-parser");
-const arr = require("../public/scripts/vakansyy/list.json");
+
 app.use(cookieParser());
 app.use(bodyparser.json());
 
+//multer
+const multer = require("multer");
+const path = require("path");
+var storage = multer.diskStorage({
+    filename: (req, file, cb) => {
+        cb(null, file.fieldname + '--' + Date.now() + path.extname(file.originalname));
+    }
+})
+const upload = multer({storage:storage});
 
 
 app.set("view engine", "ejs");
@@ -34,6 +43,7 @@ router.get('/register', (req,res)=>{
 
 router.post('/register',(req,res)=>{
     const {name,email,password,password2}= req.body;
+    const avatar = null;
     let errors= [];
     //validation
     if(!name || !email ||!password || !password2){
@@ -69,6 +79,7 @@ router.post('/register',(req,res)=>{
                         name:name,
                         email:email,
                         password:password,
+                        avatar:null,
                     })
                     //hash passord
                     bcrypt.genSalt(10,(err,salt)=>{
@@ -112,6 +123,7 @@ router.post('/register',(req,res)=>{
 //login
 
 router.post('/login',async(req,res,next)=>{
+    req.session.userEmail = req.body.email;
     passport.authenticate('local',{
         successRedirect:'/',
         failureRedirect:'/login',
@@ -122,8 +134,8 @@ router.post('/login',async(req,res,next)=>{
 
 //logout
 router.get('/logout',(req,res)=>{
+    req.session.destroy()
     req.logout();
-    alert('logout');
     res.redirect('/login')
 })
 

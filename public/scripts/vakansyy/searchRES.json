@@ -11,6 +11,17 @@
   "__v": 0
  },
  {
+  "_id": "626d8f4fa07b8d7ea7687d73",
+  "title": "backend",
+  "name": "asdsad",
+  "details": "frontend",
+  "sphere": "IT",
+  "type": "private",
+  "city": "NurSultan",
+  "salary": "222",
+  "__v": 0
+ },
+ {
   "_id": "626d9497cfbde9278b0edcad",
   "title": "we need a frontEnd",
   "name": "asd",
@@ -41,6 +52,66 @@
   "type": "not private",
   "city": "Aktobe",
   "salary": "222",
+  "__v": 0
+ },
+ {
+  "_id": "626de67f1e26f5c36a79bb95",
+  "title": "asdsd",
+  "name": "dasads",
+  "details": "asd",
+  "sphere": "null",
+  "type": "not private",
+  "city": "Aktobe",
+  "salary": "22",
+  "__v": 0
+ },
+ {
+  "_id": "626de68c202aadceab18ec45",
+  "title": "ads",
+  "name": "sad",
+  "details": "sda",
+  "sphere": "IT",
+  "type": "not private",
+  "city": "Aktobe",
+  "salary": "22",
+  "__v": 0
+ },
+ {
+  "_id": "627165776b0b9d49cb262537",
+  "title": "asddsds",
+  "name": "asdasdsdds",
+  "details": "asdds",
+  "sphere": "IT",
+  "type": "private",
+  "city": "Aktobe",
+  "salary": "222",
+  "__v": 0
+ },
+ {
+  "_id": "627ba0463ed241a4c69df1c9",
+  "title": "ads",
+  "details": "asd",
+  "sphere": "IT",
+  "city": "Almata",
+  "salary": "22",
+  "__v": 0
+ },
+ {
+  "_id": "627ba06c175aba351365822e",
+  "title": "ads",
+  "details": "asd",
+  "sphere": "IT",
+  "city": "Almata",
+  "salary": "22",
+  "__v": 0
+ },
+ {
+  "_id": "627ba09a2eaa2e00913d74c8",
+  "title": "ad",
+  "details": "asd",
+  "sphere": "Tourism",
+  "city": "Aktobe",
+  "salary": "22",
   "__v": 0
  }
 ]
